@@ -13,10 +13,10 @@ private:
     int enemyLife_;
     int enemyattack_;
     bool isAlive_;
-    int respawnTime_; //死んでからリスポーンまでの時間
-    int respawnTimer_; //リスポーンのタイマー
+    int respawnTime_; 
+    int respawnTimer_; 
     std::chrono::steady_clock::time_point lastBulletTime_;
-    bool invincible_; // 無敵状態かどうかを表すフラグ
+    bool invincible_; 
     std::chrono::steady_clock::time_point lastHitTime_;
     int enemyHandle =
         Novice::LoadTexture("./resource/condor.png");

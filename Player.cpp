@@ -9,23 +9,24 @@ Player::Player(int X, int Y, int radius, int speed, int playerLife)
     playerLife_ = playerLife;
     isAlive_ = true;
     isGameover_ = false;
+    invincible_ = false;
 }
 void Player::Update(char* keys, char* prekeys) {
     if (keys[DIK_W] && y_ > 0) {
         y_ -= speed_;
     }
-    if (keys[DIK_S] && y_ < 720 - radius_ ) {
+    if (keys[DIK_S] && y_ < 650 - radius_ ) {
         y_ += speed_;
     }
-    if (keys[DIK_A] && x_ > 20) {
+    if (keys[DIK_A] && x_ > 0) {
         x_ -= speed_;
     }
-    if (keys[DIK_D] && x_ < 1280 - radius_ ) {
+    if (keys[DIK_D] && x_ < 1220 - radius_ ) {
         x_+= speed_;
     }
     auto currentTime = std::chrono::steady_clock::now();
     auto invincibleDuration = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastHitTime_).count();
-    if (invincibleDuration < 1000) { // 1000ミリ秒（1秒）の無敵時間
+    if (invincibleDuration < 1000) { 
         invincible_ = true;
     }
     else {
@@ -43,21 +44,20 @@ void Player::Update(char* keys, char* prekeys) {
     }
 }
 void Player::Draw() {
-    Novice::DrawEllipse(x_, y_, radius_, radius_, 0.0f, WHITE, kFillModeSolid);
     Novice::DrawSprite(x_, y_, playerHandle, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
     bullet.Draw();
 }
 //プレイヤーと敵の当たり判定
 bool Player::CheckCollision(int enemyX, int enemyY, int enemyRadius) {
-    int distance = sqrt(pow(enemyX - x_, 2) + pow(enemyY - y_, 2));
-    if (distance < enemyRadius + radius_) {
+    int distance = int(sqrt(pow(enemyX - x_, 2) + pow(enemyY - y_, 2)));
+    if (double(distance < enemyRadius + radius_)) {
         return true;
     }
     return false;
 }
 bool Player::CheckBulletEnemyCollision(int enemyX, int enemyY, int enemyRadius) {
     // プレイヤーの弾と敵との距離を計算
-    int distance = sqrt(pow(enemyX - bullet.GetbulletposX(), 2) + pow(enemyY - bullet.GetbulletposY(), 2));
+    int distance = int(sqrt(pow(enemyX - bullet.GetbulletposX(), 2) + pow(enemyY - bullet.GetbulletposY(), 2)));
 
     // 弾と敵の当たり判定
     if (distance < enemyRadius + bullet.Getbulletradius()) {
@@ -67,7 +67,7 @@ bool Player::CheckBulletEnemyCollision(int enemyX, int enemyY, int enemyRadius) 
 }
 void Player::Reset() {
     x_ = 600;
-    y_ = 700;
+    y_ = 550;
     playerLife_ = 20;
     bullet.Reset(); 
     isGameover_ = false;

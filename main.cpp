@@ -1,7 +1,7 @@
 #include <Novice.h>
 #include "Player.h"
 #include "enemy.h"
-const char kWindowTitle[] = "LC1A_15_サノ_ハヤテ_タイトル";
+const char kWindowTitle[] = "大鳥駆除";
 enum SCENE {
 	TITLE,
 	GAME,
@@ -13,10 +13,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// キー入力結果を受け取る箱
 	char keys[256] = { 0 };
 	char preKeys[256] = { 0 };
-	Player* player = new Player(600, 700, 20, 5,20);
-	Enemy* enemy = new Enemy(100, 50, 30, 5,20,2,30);
+	Player* player = new Player(600, 550, 50, 5,20);
+	Enemy* enemy = new Enemy(100, 50, 100, 5,20,2,30);
 
-	int scene = GAME;
+	int scene = TITLE;
 	int titleHandle = Novice::LoadTexture("./resource/title.png");
 	int backHandle = Novice::LoadTexture("./resource/back.png");
 	// ウィンドウの×ボタンが押されるまでループ
@@ -29,6 +29,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		switch (scene) {
 		case TITLE:
+			if (keys[DIK_SPACE] && keys[DIK_SPACE] != 0) {
+				scene = GAME;
+			}
 			break;
 		case GAME:
 			player->Update(keys, preKeys);
@@ -52,8 +55,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Novice::DrawSprite(0, 0, titleHandle, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 			break;
 		case GAME:
-			Novice::ScreenPrintf(100, 100, "pcount = %d", enemy->GetEnemyLife());
-			Novice::ScreenPrintf(100, 150, "bcount = %d", player->GetPlayerLife());
+			Novice::ScreenPrintf(100, 100, "EnemyLife = %d", enemy->GetEnemyLife());
+			Novice::ScreenPrintf(100, 150, "PlayerLife = %d", player->GetPlayerLife());
 			player->Draw();
 			enemy->Draw();
 			break;

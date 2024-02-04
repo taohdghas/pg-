@@ -19,11 +19,10 @@ void Bullet::Update() {
 void Bullet::Draw() {
     if (isShot) {
         Novice::DrawSprite(x_, y_, bulletHandle, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-        Novice::DrawEllipse(x_, y_, radius_, radius_, 0.0f, RED, kFillModeSolid);
     }
 }
 void Bullet::Shoot(int playerX, int playerY) {
-    x_ = playerX;
+    x_ = playerX + 30;
     y_ = playerY;
     isShot = true;
 }

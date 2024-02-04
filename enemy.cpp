@@ -1,7 +1,7 @@
 ﻿#include "Enemy.h"
 #include <Novice.h>
 Enemy::Enemy(int posX, int posY, int radius, int speed, int enemyLife,
-	int enemyattack, int respawnTime) :enemybullet(posX, posY, 5, 10, 2)
+	int enemyattack, int respawnTime) :enemybullet(posX, posY, 7, 10, 2)
 {
 	posX_ = posX;
 	posY_ = posY;
@@ -12,6 +12,7 @@ Enemy::Enemy(int posX, int posY, int radius, int speed, int enemyLife,
 	isAlive_ = true;
 	respawnTime_ = respawnTime;
 	respawnTimer_ = 0;
+	invincible_ = false;
 }
 void Enemy::Update(Player& player) {
 	if (!isAlive_) {
@@ -22,7 +23,7 @@ void Enemy::Update(Player& player) {
 		return;
 	}
 	posX_ += speed_;
-	if (posX_ > 1250 || posX_ < 10)
+	if (posX_ > 1170 || posX_ < 10)
 	{
 		speed_ = -speed_;
 	}
@@ -32,7 +33,7 @@ void Enemy::Update(Player& player) {
 	}
 	auto currentTime = std::chrono::steady_clock::now();
 	auto invincibleDuration = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastHitTime_).count();
-	if (invincibleDuration < 1000) { // 1000ミリ秒（1秒）の無敵時間
+	if (invincibleDuration < 1000) { 
 		invincible_ = true;
 	}
 	else {
@@ -67,7 +68,7 @@ void Enemy::Update(Player& player) {
 }
 
 void Enemy::Draw() {
-	Novice::DrawEllipse(posX_, posY_, radius_, radius_, 0.0f, RED, kFillModeSolid);
+	//Novice::DrawEllipse(posX_, posY_, radius_, radius_, 0.0f, RED, kFillModeSolid);
 	Novice::DrawSprite(posX_, posY_, enemyHandle, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 	enemybullet.Draw();
 }
@@ -86,7 +87,7 @@ void Enemy::Reset() {
 	posX_ = 100;
 	posY_ = 50;
 	enemyLife_ = 20;
-	enemybullet.Reset(); // 敵の弾の状態もリセットする
+	enemybullet.Reset(); 
 	isAlive_ = true;
 }
 bool Enemy::checkEnemyBulletCollision(int playerX, int playerY, int playerRadius) {

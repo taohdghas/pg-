@@ -16,6 +16,7 @@
     <ProjectGuid>{59899769-0f5e-4142-9f18-7846981c2e2f}</ProjectGuid>
     <RootNamespace>pg評価２</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>大鳥駆除</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">

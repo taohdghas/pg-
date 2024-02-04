@@ -12,7 +12,7 @@ private:
     int speed_;
     int playerLife_;
     bool isAlive_;
-    bool invincible_; // 無敵状態かどうかを表すフラグ
+    bool invincible_; 
     bool isGameover_;
     std::chrono::steady_clock::time_point lastHitTime_;
     int playerHandle =

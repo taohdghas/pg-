@@ -18,7 +18,6 @@ void enemyBullet::Update() {
 }
 void enemyBullet::Draw() {
 	Novice::DrawSprite(bulletX_, bulletY_, enemybulletHandle, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-	Novice::DrawEllipse(bulletX_, bulletY_, radius_, radius_, 1.0f, BLUE, kFillModeSolid);
 }
 void enemyBullet::Shot(int enemyX, int enemyY, int enemybulletSpeed) {
 	bulletX_ = enemyX + 50;
